@@ -3,17 +3,16 @@ import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import { axiosInstance } from "./utils";
 import { AntDesign } from '@expo/vector-icons';
 import Task from "./Task";
-import { AuthContext } from "./AuthProvider";
+import { AuthContext } from "./Navigation/AuthProvider";
 
 
 
-function Dashboard() {
+function InProgress() {
     const { user } = React.useContext(AuthContext);
     
     const [tasks, setTasks] = React.useState([]);
 
-
-    async function getFeed() {
+    async function getTasks() {
         try {
             const apiEndPoint = `/${user.username}/feed.json?user_email=${user.email}&user_token=${user.authentication_token}`
             const response = await axiosInstance.get(apiEndPoint)
@@ -24,13 +23,13 @@ function Dashboard() {
     }
 
     React.useEffect(() => {
-        getFeed();
+        getTasks();
     }, [])
 
     return (
         <View>
             <Text style={styles.title}>
-                Dashboard
+                In progress
             </Text>
             <FlatList
                 data={tasks}
@@ -49,11 +48,11 @@ const styles = StyleSheet.create({
         marginTop: 12,
         marginBottom: 6,
         marginLeft: 6,
-        color: 'grey'
+        color: 'orange'
     },
     contentContainer: {
         padding: 12
     }
 })
 
-export default Dashboard;
+export default InProgress;
