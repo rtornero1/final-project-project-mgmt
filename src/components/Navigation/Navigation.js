@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SignIn from "../SignIn";
+import Dashboard from "../Dashboard";
 
 function Navigation() {
     const [user, setUser] = React.useState(null);
@@ -36,7 +37,7 @@ function Navigation() {
 
     return (
         <View>
-            {user ? <Text>Home Screen</Text> : <SignIn setUser={setUser} />}
+            {user ? <Dashboard user={ user } /> : <SignIn setUser={setUser} />}
         </View>
     )
 }
