@@ -3,10 +3,13 @@ import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import { axiosInstance } from "./utils";
 import { AntDesign } from '@expo/vector-icons';
 import Task from "./Task";
+import { AuthContext } from "./AuthProvider";
 
 
 
-function Dashboard( { user } ) {
+function Dashboard() {
+    const { user } = React.useContext(AuthContext);
+    
     const [tasks, setTasks] = React.useState([]);
 
 
@@ -45,7 +48,8 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         marginTop: 12,
         marginBottom: 6,
-        marginLeft: 'center'
+        marginLeft: 6,
+        color: 'grey'
     },
     contentContainer: {
         padding: 12
