@@ -1,9 +1,14 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import { axiosInstance } from "./utils";
+import { AntDesign } from '@expo/vector-icons';
+import Task from "./Task";
+
+
 
 function Dashboard( { user } ) {
     const [tasks, setTasks] = React.useState([]);
+
 
     async function getFeed() {
         try {
@@ -21,24 +26,30 @@ function Dashboard( { user } ) {
 
     return (
         <View>
-            <Text>
+            <Text style={styles.title}>
                 Dashboard
             </Text>
-            <ScrollView>
-                {
-                    tasks.map((task) => {
-                        return (
-                            <View>
-                                <Text>
-                                    {task.caption}
-                                </Text>
-                            </View>
-                        )
-                    })
-                }
-            </ScrollView>
+            <FlatList
+                data={tasks}
+                renderItem={({item}) => <Task task={item} />}
+                keyExtractor={item => item.id}
+                contentContainerStyle={styles.contentContainer}
+            />
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    title: {
+        fontSize: 28, 
+        fontWeight: '600',
+        marginTop: 12,
+        marginBottom: 6,
+        marginLeft: 'center'
+    },
+    contentContainer: {
+        padding: 12
+    }
+})
 
 export default Dashboard;
