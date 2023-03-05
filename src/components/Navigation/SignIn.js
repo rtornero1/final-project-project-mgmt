@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
-import { axiosInstance } from "./utils";
+import { axiosInstance } from "../utils";
 import { AuthContext } from "./AuthProvider";
 
 function SignIn() {
