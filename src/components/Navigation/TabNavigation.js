@@ -29,7 +29,7 @@ const screenOptions = ({ route }) => {
 export default function TabNavigation() {
   return (
     <Tab.Navigator screenOptions={{ screenOptions }}>
-        <Tab.Screen name="Dashboard" component={Backlog} />
+        <Tab.Screen name="Backlog" component={Backlog} />
         <Tab.Screen name="In Progress" component={InProgress} />
         <Tab.Screen name="Completed" component={Completed} />
     </Tab.Navigator>
