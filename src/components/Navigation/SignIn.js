@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     },
     input: {
         padding: 14,
-        height: 40,
+        height: 50,
         marginTop: 12,
         marginLeft: 6,
         marginRight: 6,

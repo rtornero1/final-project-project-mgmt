@@ -28,9 +28,6 @@ function InProgress() {
 
     return (
         <View>
-            <Text style={styles.title}>
-                In progress
-            </Text>
             <FlatList
                 data={tasks}
                 renderItem={({item}) => <Task task={item} />}

@@ -28,9 +28,6 @@ function Completed() {
 
     return (
         <View>
-            <Text style={styles.title}>
-                Completed
-            </Text>
             <FlatList
                 data={tasks}
                 renderItem={({item}) => <Task task={item} />}
