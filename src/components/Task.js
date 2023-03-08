@@ -1,16 +1,26 @@
 import React from "react";
 import { View, Text, StyleSheet, Button, Pressable } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
+import TaskComments from "./TaskComments";
+
+function viewComments() {
+    return(
+        <View>
+            console.log("Pushed button")
+            <TaskComments />
+        </View>
+    )
+}
 
 function Task({ task }) {
 
-    async function editOwner() {
+    async function moveForward() {
 
     }
     async function editDescription() {
 
     }
-    async function viewComments() {
+    async function deleteTask() {
 
     }
 
@@ -22,11 +32,11 @@ function Task({ task }) {
 
             <Text style={styles.caption}>{task.caption}</Text>
             <Pressable onPress={viewComments}>
-                <Text style={styles.commentButton}>{task.likes_count} {task.likes_count === 1 ? "comment" : "comments"}</Text>
+                <Text style={styles.commentButton}>{task.comments_count} {task.comments_count === 1 ? "comment" : "comments"}</Text>
             </Pressable>
             <View style={styles.tasksContainer}>
                 <View style={styles.taskButton}>
-                    <Pressable style={styles.button} onPress={editDescription}>
+                    <Pressable style={styles.button} onPress={moveForward}>
                         <AntDesign style={styles.icon} name="stepforward" color="dodgerblue" />
                         <Text>In Progress</Text>
                     </Pressable>
@@ -38,7 +48,7 @@ function Task({ task }) {
                     </Pressable>
                 </View>
                 <View style={styles.taskButton}>
-                    <Pressable style={styles.button} onPress={editDescription}>
+                    <Pressable style={styles.button} onPress={deleteTask}>
                         <AntDesign style={styles.icon} name="delete" color="dodgerblue" />
                         <Text>Delete</Text>
                     </Pressable>

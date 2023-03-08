@@ -9,9 +9,9 @@ import { Ionicons } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 
 const TAB_ICON = {
-  Backlog: "bars",
-  InProgress: "cycle",
-  Completed: "checkcircleo"
+  Backlog: "list",
+  InProgress: "reload",
+  Completed: "checkbox-outline"
 };
 
 const screenOptions = ({ route }) => {
@@ -30,7 +30,7 @@ export default function TabNavigation() {
   return (
     <Tab.Navigator screenOptions={{ screenOptions }}>
         <Tab.Screen name="Backlog" component={Backlog} />
-        <Tab.Screen name="In Progress" component={InProgress} />
+        <Tab.Screen name="InProgress" component={InProgress} />
         <Tab.Screen name="Completed" component={Completed} />
     </Tab.Navigator>
   );

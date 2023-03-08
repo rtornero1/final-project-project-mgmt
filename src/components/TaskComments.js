@@ -2,15 +2,15 @@ import React from "react";
 import { View, Text, StyleSheet, FlatList, TextInput, Button } from "react-native";
 import { axiosInstance } from "./utils";
 import { AntDesign } from '@expo/vector-icons';
-import Task from "./Task";
+import Comment from "./Comment";
 import { AuthContext } from "./Navigation/AuthProvider";
 
 
 
-function Backlog() {
+function TaskComments() {
     const { user } = React.useContext(AuthContext);
-
-    const [tasks, setTasks] = React.useState([]);
+    
+    const [comments, setComments] = React.useState([]);
 
     const [description, setDescription] = React.useState("");
 
@@ -18,41 +18,40 @@ function Backlog() {
         
     }
 
-    async function getTasks() {
+    async function getComments() {
         try {
-            // const apiEndPoint = `/${user.username}/feed.json?user_email=${user.email}&user_token=${user.authentication_token}`
-            const apiEndPoint = `/tasks.json`
+            const apiEndPoint = `/${user.username}/feed.json?user_email=${user.email}&user_token=${user.authentication_token}`
             const response = await axiosInstance.get(apiEndPoint)
-            setTasks(response.data.filter(item => item.status === "backlog"));
+            setComments(response.data);
         } catch (error) {
             console.log(error)
         }
     }
 
     React.useEffect(() => {
-        getTasks();
+        getComments();
     }, [])
 
     return (
         <View>
-            <Text style={styles.subtitle}>
-                Add new task
+            <Text style={styles.title}>
+                Add new comment
             </Text>
             <TextInput
                 style={styles.input}
                 value={description}
                 onChangeText={(change) => setDescription(change)}
-                placeholder={"Task description..."}
+                placeholder={"Insert comment..."}
             />
             <Button
                 style={styles.button}
-                title="Create task"
+                title="Add comment"
                 onPress={postDescription}
             />
 
             <FlatList
-                data={tasks}
-                renderItem={({ item }) => <Task task={item} />}
+                data={comments}
+                renderItem={({ item }) => <Comment comment={item} />}
                 keyExtractor={item => item.id}
                 contentContainerStyle={styles.contentContainer}
             />
@@ -62,14 +61,6 @@ function Backlog() {
 
 const styles = StyleSheet.create({
     title: {
-        fontSize: 28,
-        fontWeight: '600',
-        marginTop: 12,
-        marginBottom: 6,
-        marginLeft: 6,
-        color: 'gray'
-    },
-    subtitle: {
         fontSize: 20,
         fontWeight: '500',
         marginTop: 12,
@@ -96,4 +87,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default Backlog;
+export default TaskComments;
