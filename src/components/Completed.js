@@ -14,9 +14,10 @@ function Completed() {
 
     async function getTasks() {
         try {
-            const apiEndPoint = `/${user.username}/feed.json?user_email=${user.email}&user_token=${user.authentication_token}`
+            // const apiEndPoint = `/${user.username}/feed.json?user_email=${user.email}&user_token=${user.authentication_token}`
+            const apiEndPoint = `/tasks.json`
             const response = await axiosInstance.get(apiEndPoint)
-            setTasks(response.data);
+            setTasks(response.data.filter(item => item.status === "completed"));
         } catch(error) {
             console.log(error)
         }

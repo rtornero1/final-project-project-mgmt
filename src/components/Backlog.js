@@ -1,28 +1,44 @@
 import React from "react";
 import { View, Text, StyleSheet, FlatList, TextInput, Button } from "react-native";
 import { axiosInstance } from "./utils";
-import { AntDesign } from '@expo/vector-icons';
 import Task from "./Task";
 import { AuthContext } from "./Navigation/AuthProvider";
+import InProgress from "./InProgress";
 
 
 
 function Backlog() {
     const { user } = React.useContext(AuthContext);
-
     const [tasks, setTasks] = React.useState([]);
 
-    const [description, setDescription] = React.useState("");
+    const [caption, setCaption] = React.useState("");
 
-    async function postDescription() {
-        
+    async function createTask() {
+        try {
+            const apiEndPoint = "/tasks.json"
+
+            const body = {
+                task: {
+                    caption: caption,
+                    owner_id: user.id
+                }
+            }
+
+            const response = await axiosInstance.post(apiEndPoint, body);
+
+            console.log(response.data);
+            // <Backlog />;
+        } catch (error) {
+            console.error(error.toJSON());
+        }
     }
 
     async function getTasks() {
         try {
-            const apiEndPoint = `/${user.username}/feed.json?user_email=${user.email}&user_token=${user.authentication_token}`
+            // const apiEndPoint = `/${user.username}/feed.json?user_email=${user.email}&user_token=${user.authentication_token}`
+            const apiEndPoint = `/tasks.json`
             const response = await axiosInstance.get(apiEndPoint)
-            setTasks(response.data);
+            setTasks(response.data.filter(item => item.status === "backlog"));
         } catch (error) {
             console.log(error)
         }
@@ -39,14 +55,14 @@ function Backlog() {
             </Text>
             <TextInput
                 style={styles.input}
-                value={description}
-                onChangeText={(change) => setDescription(change)}
+                value={caption}
+                onChangeText={(change) => setCaption(change)}
                 placeholder={"Task description..."}
             />
             <Button
                 style={styles.button}
                 title="Create task"
-                onPress={postDescription}
+                onPress={createTask}
             />
 
             <FlatList

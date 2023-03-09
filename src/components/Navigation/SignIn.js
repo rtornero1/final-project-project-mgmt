@@ -23,6 +23,7 @@ function SignIn() {
             const response = await axiosInstance.post(apiEndPoint, body);
 
             setUser(response.data);
+            // console.log(response.data)
         } catch (error) {
             console.error(error.toJSON());
         }
