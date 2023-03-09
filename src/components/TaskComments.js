@@ -8,8 +8,7 @@ import { AuthContext } from "./Navigation/AuthProvider";
 
 
 function TaskComments() {
-    const { user } = React.useContext(AuthContext);
-    
+
     const [comments, setComments] = React.useState([]);
 
     const [description, setDescription] = React.useState("");
@@ -20,9 +19,10 @@ function TaskComments() {
 
     async function getComments() {
         try {
-            const apiEndPoint = `/${user.username}/feed.json?user_email=${user.email}&user_token=${user.authentication_token}`
+            // const apiEndPoint = `/${user.username}/feed.json?user_email=${user.email}&user_token=${user.authentication_token}`
+            const apiEndPoint = `/tasks.json`
             const response = await axiosInstance.get(apiEndPoint)
-            setComments(response.data);
+            setComments(response.data.filter(item => item.status === "backlog"));
         } catch (error) {
             console.log(error)
         }
@@ -34,9 +34,6 @@ function TaskComments() {
 
     return (
         <View>
-            <Text style={styles.title}>
-                Add new comment
-            </Text>
             <TextInput
                 style={styles.input}
                 value={description}
@@ -72,7 +69,7 @@ const styles = StyleSheet.create({
     },
     input: {
         padding: 14,
-        height: 60,
+        height: 40,
         marginTop: 6,
         marginLeft: 12,
         marginRight: 12,
@@ -82,7 +79,7 @@ const styles = StyleSheet.create({
     },
     button: {
         color: '#007AFF',
-        fontSize: 40,
+        fontSize: 20,
     }
 
 })

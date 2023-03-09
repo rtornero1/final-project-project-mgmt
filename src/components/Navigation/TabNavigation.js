@@ -30,7 +30,7 @@ export default function TabNavigation() {
   return (
     <Tab.Navigator screenOptions={{ screenOptions }}>
         <Tab.Screen name="Backlog" component={Backlog} />
-        <Tab.Screen name="InProgress" component={InProgress} />
+        <Tab.Screen name="In Progress" component={InProgress} />
         <Tab.Screen name="Completed" component={Completed} />
     </Tab.Navigator>
   );

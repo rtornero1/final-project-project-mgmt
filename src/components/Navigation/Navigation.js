@@ -1,6 +1,4 @@
 import React from "react";
-import { View, Text } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "./AuthProvider";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigation from "./AuthNavigation";
